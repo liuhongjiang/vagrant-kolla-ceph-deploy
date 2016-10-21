@@ -6,7 +6,7 @@ curl -fsSL https://get.docker.com/ | sudo sh
 
 sudo usermod -aG docker vagrant
 
-exec bash
+#exec bash
 
 sudo systemctl enable docker.service
 sudo systemctl start docker
