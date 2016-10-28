@@ -45,6 +45,9 @@ EOF
 
 # Run these commands to reload the daemon
 sudo systemctl daemon-reload
+
+sudo echo "{ "insecure-registries":["myregistry.example.com:5000"] }" > /etc/docker/daemon.json
+
 sudo systemctl restart docker
 
 sudo pip install -U docker-py
