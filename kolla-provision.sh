@@ -52,6 +52,7 @@ sudo systemctl daemon-reload
 sudo echo "{ \"insecure-registries\":[\"192.168.60.31:5000\"] }" > /etc/docker/daemon.json
 
 sudo systemctl restart docker
+sudo systemctl enable docker
 
 sudo pip install -U docker-py
 

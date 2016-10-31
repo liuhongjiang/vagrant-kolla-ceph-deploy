@@ -73,6 +73,15 @@ Vagrant.configure(2) do |config|
   config.vm.define "kolla" do |kolla|
     kolla.vm.network "private_network", ip: "192.168.60.11"
     kolla.vm.hostname = "kolla"
+
+    kolla.vm.provider "virtualbox" do |vb|
+      # Display the VirtualBox GUI when booting the machine
+      #vb.gui = true
+   
+      # Customize the amount of memory on the VM:
+      vb.memory = "1024"
+    end
+
     kolla.vm.provision "shell", path: "kolla-provision.sh"
     kolla.vm.provision "file", source: "ssh-keys/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
     kolla.vm.provision "file", source: "ssh-keys/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
@@ -95,15 +104,15 @@ Vagrant.configure(2) do |config|
       node.vm.network "private_network", ip: "192.168.60.2#{i}"
       node.vm.hostname = "ceph#{i}"
       node.vm.provider "virtualbox" do |vb|
-        vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata']
         if ARGV[0] == "up" && ! File.exist?(file_to_disk)
+          vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata']
           vb.customize ['createhd', '--filename', file_to_disk, '--size', 37 * 1024]
+          vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', file_to_disk]
         if ARGV[0] == "up" && ! File.exist?(file_to_journal)
           vb.customize ['createhd', '--filename', file_to_journal, '--size', 17 * 1024]
+          vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', file_to_journal]
         end
-        vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', file_to_journal]
       end
       node.vm.provision "shell", path: "kolla-provision.sh"
       node.vm.provision "file", source: "ssh-keys/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
@@ -118,6 +127,9 @@ Vagrant.configure(2) do |config|
     registry.vm.hostname = "registry"
 
     registry.vm.provision "shell", path: "registry-provision.sh"
+    registry.vm.provision "file", source: "ssh-keys/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
+    registry.vm.provision "file", source: "ssh-keys/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
+    registry.vm.provision "shell", inline: "cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
   end
 
   (1..2).each do |i|
