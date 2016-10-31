@@ -106,10 +106,10 @@ Vagrant.configure(2) do |config|
         vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', file_to_journal]
       end
       node.vm.provision "shell", path: "kolla-provision.sh"
-      node.vm.provision "shell", path: "ceph-partition-provision.sh"
       node.vm.provision "file", source: "ssh-keys/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
       node.vm.provision "file", source: "ssh-keys/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
       node.vm.provision "shell", inline: "cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
+      node.vm.provision "shell", path: "ceph-partition-provision.sh"
     end
   end 
   

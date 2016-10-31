@@ -11,3 +11,6 @@ hostname=`hostname`
 sudo parted ${disk_name} -s -- mklabel gpt mkpart "KOLLA_CEPH_OSD_BOOTSTRAP_${hostname}" 1 -1
 sudo parted ${journal_name} -s -- mklabel gpt mkpart "KOLLA_CEPH_OSD_BOOTSTRAP_${hostname}_J" 1 -1
 
+# allow ssh as root
+sudo cp -r /home/vagrant/.ssh /root/
+
