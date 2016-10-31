@@ -2,9 +2,8 @@
 # additional groups are for more control of the environment.
 [control]
 # These hostname must be resolvable from your deployment host
-ceph1
-ceph2
-ceph3
+control1
+control2
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_ssh_user=kolla
@@ -12,13 +11,16 @@ ceph3
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
 [network]
-ceph1
+control1
+control2
 
 [compute]
-ceph1
+control1
+control2
 
 [monitoring]
-ceph1
+control1
+control2
 
 # When compute nodes and control nodes use different interfaces,
 # you can specify "api_interface" and another interfaces like below:

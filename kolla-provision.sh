@@ -9,6 +9,9 @@ sudo cat <<hostsdoc >> /etc/hosts
 192.168.60.21    ceph1
 192.168.60.22    ceph2
 192.168.60.23    ceph3
+192.168.60.31    registry
+192.168.60.41    control1
+192.168.60.42    control2
 hostsdoc
 fi
 

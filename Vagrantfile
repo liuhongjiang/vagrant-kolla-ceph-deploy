@@ -120,4 +120,14 @@ Vagrant.configure(2) do |config|
     registry.vm.provision "shell", path: "registry-provision.sh"
   end
 
+  (1..2).each do |i|
+    config.vm.define "control#{i}" do |node|
+      node.vm.network "private_network", ip: "192.168.60.4#{i}"
+      node.vm.hostname = "control#{i}"
+      node.vm.provision "shell", path: "kolla-provision.sh"
+      node.vm.provision "file", source: "ssh-keys/id_rsa.pub", destination: "/home/vagrant/.ssh/id_rsa.pub"
+      node.vm.provision "file", source: "ssh-keys/id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
+      node.vm.provision "shell", inline: "cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
+    end
+  end 
 end

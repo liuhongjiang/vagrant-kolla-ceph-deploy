@@ -27,7 +27,7 @@ node_config_directory: "/home/vagrant/kolla-deploy/{{ project }}"
 # the hosts running keepalived for high-availability. When running an All-In-One
 # without haproxy and keepalived, this should be the first IP on your
 # 'network_interface' as set in the Networking section below.
-kolla_internal_vip_address: "192.168.60.111"
+kolla_internal_vip_address: "192.168.60.41"
 #kolla_internal_vip_address: "192.168.60.111"
 
 # This is the DNS name that maps to the kolla_internal_vip_address VIP. By
@@ -121,7 +121,7 @@ network_interface: "eth1"
 # could disable some of these required roles and run their own services.
 enable_glance: "no"
 enable_haproxy: "no"
-enable_keystone: "no"
+enable_keystone: "yes"
 enable_mariadb: "no"
 enable_memcached: "no"
 enable_neutron: "no"
@@ -137,7 +137,7 @@ enable_central_logging: "no"
 enable_ceph: "yes"
 enable_ceph_rgw: "no"
 
-enable_cinder: "no"
+enable_cinder: "yes"
 enable_cinder_backend_iscsi: "no"
 enable_cinder_backend_lvm: "no"
 enable_cloudkitty: "no"
@@ -146,7 +146,7 @@ enable_etcd: "no"
 enable_gnocchi: "no"
 enable_grafana: "no"
 enable_heat: "no"
-enable_horizon: "no"
+enable_horizon: "yes"
 enable_influxdb: "no"
 enable_ironic: "no"
 enable_kuryr: "no"
