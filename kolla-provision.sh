@@ -49,7 +49,7 @@ EOF
 # Run these commands to reload the daemon
 sudo systemctl daemon-reload
 
-sudo echo "{ \"insecure-registries\":[\"192.168.60.31:5000\"] }" > /etc/docker/daemon.json
+echo "{ \"insecure-registries\":[\"192.168.60.31:5000\"] }" | sudo tee /etc/docker/daemon.json
 
 sudo systemctl restart docker
 sudo systemctl enable docker
