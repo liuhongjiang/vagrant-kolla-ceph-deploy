@@ -2,13 +2,15 @@
 
 sudo yum -y install git
 
+BRANCH='stable/newton'
+
 if [ -d kolla ]
 then
     cd kolla
-    git pull origin master
+    git pull origin ${BRANCH}
     cd ../
 else
-    git clone https://git.openstack.org/openstack/kolla
+    git clone --branch ${BRANCH}  https://git.openstack.org/openstack/kolla
 fi
 
 sudo pip install -r kolla/requirements.txt -r kolla/test-requirements.txt
