@@ -126,7 +126,7 @@ enable_mariadb: "yes"
 enable_memcached: "yes"
 enable_neutron: "no"
 enable_nova: "no"
-enable_rabbitmq: "no"
+enable_rabbitmq: "yes"
 
 # OpenStack services can be enabled or disabled with these options
 enable_aodh: "no"

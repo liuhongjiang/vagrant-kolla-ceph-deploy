@@ -24,5 +24,11 @@ sudo cp /home/vagrant/kolla-config/* /etc/kolla/
 
 kolla-build --config-dir /home/vagrant/kolla-config --push
 
+
 kolla-ansible deploy --configdir /home/vagrant/kolla-config -i /home/vagrant/kolla-config/multinode -vvv
 
+if [ $? -eq 0 ]
+then
+    mkdir -p /home/vagrant/kolla-deploy
+    kolla-ansible post-deploy --configdir /home/vagrant/kolla-config -i /home/vagrant/kolla-config/multinode -vvv
+fi

@@ -97,7 +97,6 @@ Vagrant.configure(2) do |config|
   end
 
   (1..3).each do |i|
-  #(1..1).each do |i|
     config.vm.define "ceph#{i}" do |node|
       file_to_disk = "./tmp/large_disk#{i}.vdi"
       file_to_journal = "./tmp/large_disk#{i}_j.vdi"
@@ -134,6 +133,14 @@ Vagrant.configure(2) do |config|
 
   (1..2).each do |i|
     config.vm.define "control#{i}" do |node|
+      node.vm.provider "virtualbox" do |vb|
+        # Display the VirtualBox GUI when booting the machine
+        #vb.gui = true
+   
+        # Customize the amount of memory on the VM:
+        vb.memory = "2048"
+        vb.cpus = 2
+      end
       node.vm.network "private_network", ip: "192.168.60.4#{i}"
       node.vm.hostname = "control#{i}"
       node.vm.provision "shell", path: "kolla-provision.sh"
