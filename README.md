@@ -1,5 +1,7 @@
 This repository is used to deploy an developing environment of openstack.
 
+* It will deploy kolla stable/newton version.
+
 * It will deploy ceph_osd as cinder driver, on the virtulbox vms ceph1/ceph2/ceph3
 
 * It will deploy ceph_mon, cinder, keystone, horizon on the controller node
