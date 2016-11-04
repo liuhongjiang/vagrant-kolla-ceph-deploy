@@ -1,5 +1,8 @@
 #! /bin/env bash
 
+# variables
+BRANCH='stable/newton'
+
 # Add docker insecure
 
 hosts=(ceph1 ceph2 ceph3 control1 control2 registry)
@@ -9,9 +12,11 @@ do
     ssh $host 'echo "{ \"insecure-registries\":[\"192.168.60.31:5000\"] }" | sudo tee /etc/docker/daemon.json && sudo systemctl restart docker'
 done
 
-sudo yum -y install git
+echo "{ \"insecure-registries\":[\"192.168.60.31:5000\"] }" | sudo tee /etc/docker/daemon.json && sudo systemctl restart docker
 
-BRANCH='stable/newton'
+
+# set up kolla deploy node
+sudo yum -y install git
 
 if [ -d kolla ]
 then
